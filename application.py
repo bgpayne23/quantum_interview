@@ -3,12 +3,12 @@ import numpy as np
 import joblib
 
 # Load the model and scaler
-model = joblib.load('/Users/brianp/Desktop/Quantum Interview/mirahealth/logistic_regression_model.pkl')
-scaler = joblib.load('/Users/brianp/Desktop/Quantum Interview/mirahealth/scaler_newer.pkl')
+model = joblib.load('logistic_regression_model.pkl')
+scaler = joblib.load('scaler_newer.pkl')
 
-app = Flask(__name__)
+application = Flask(__name__)  # Elastic Beanstalk expects an 'application' callable
 
-@app.route('/predict', methods=['POST'])
+@application.route('/predict', methods=['POST'])
 def predict():
     data = request.get_json(force=True)
     # Extract and scale the features from the JSON
@@ -28,4 +28,4 @@ def predict():
     return jsonify(response)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    application.run(debug=True)
